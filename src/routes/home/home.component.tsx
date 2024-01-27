@@ -1,5 +1,5 @@
-import { Category } from '../../category-item/category-item.component';
-import CategoryList from '../../category-list/category-list.component';
+import { Category } from '../../components/category-item/category-item.component';
+import CategoryList from '../../components/category-list/category-list.component';
 
 const Home = () => {
   const categories: Category[] = [
