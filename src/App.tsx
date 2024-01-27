@@ -1,6 +1,9 @@
 import './categories.styles.scss';
 
-const categories = [
+import { Category } from './components/category-item/category-item.component';
+import CategoryItem from './components/category-item/category-item.component';
+
+const categories: Category[] = [
   {
     id: 1,
     title: 'hats',
@@ -32,19 +35,7 @@ const App = () => {
   return (
     <div className='categories-container'>
       {categories.map((category) => {
-        const { id, title, imageUrl } = category;
-        return (
-          <div key={id} className='category-container'>
-            <div
-              className='background-image'
-              style={{ backgroundImage: `url(${imageUrl})` }}
-            />
-            <div className='category-body-container'>
-              <h2>{title}</h2>
-              <p>Shop Now</p>
-            </div>
-          </div>
-        );
+        return <CategoryItem category={category} />;
       })}
     </div>
   );
