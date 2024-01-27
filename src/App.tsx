@@ -1,3 +1,5 @@
+import './categories.styles.scss'
+
 const App = () => {
   const categories = [
     {
@@ -33,7 +35,7 @@ const App = () => {
         const { id, title, subtitle } = category;
         return (
           <div key={id} className='category-container'>
-            <div className='background-image-container' />
+            <div className='background-image' />
             <div className='category-body-container'>
               <h2>{title}</h2>
               <p>{subtitle}</p>
