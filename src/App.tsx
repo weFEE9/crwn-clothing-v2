@@ -33,7 +33,7 @@ const App = () => {
         const { id, title, subtitle } = category;
         return (
           <div key={id} className='category-container'>
-            {/* <img /> */}
+            <div className='background-image-container' />
             <div className='category-body-container'>
               <h2>{title}</h2>
               <p>{subtitle}</p>
