@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 
+import './sign-up-form.styles.scss';
+
 const defautlFormFields = {
   displayName: '',
   email: '',
@@ -64,7 +66,8 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <h1>Sign up with your email and password</h1>
+      <h2>Don't have an account?</h2>
+      <p>Sign up with your email and password</p>
       <form onSubmit={handleFormSubmit}>
         <FormInput
           label='Display Name'
