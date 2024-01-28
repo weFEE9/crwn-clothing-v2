@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
+import Button from '../button/buttcon.component';
 
 import './sign-up-form.styles.scss';
 
@@ -105,7 +106,9 @@ const SignUpForm = () => {
           onChange={handleFormChange}
         />
 
-        <button type='submit'>Sign Up</button>
+        <Button onClick={handleFormSubmit} type='submit'>
+          Sign UP
+        </Button>
       </form>
     </div>
   );
