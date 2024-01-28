@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import FormInput from '../form-input/form-input.component';
+
 const defautlFormFields = {
   displayName: '',
   email: '',
@@ -64,39 +66,39 @@ const SignUpForm = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handleFormSubmit}>
-        <label>Display Name</label>
-        <input
-          type='text'
-          required
+        <FormInput
+          label='Display Name'
           name='displayName'
+          type='text'
           value={displayName}
+          required
           onChange={handleFormChange}
         />
 
-        <label>Email</label>
-        <input
-          type='email'
-          required
+        <FormInput
+          label='Email'
           name='email'
+          type='email'
           value={email}
+          required
           onChange={handleFormChange}
         />
 
-        <label>Password</label>
-        <input
-          type='password'
-          required
+        <FormInput
+          label='Password'
           name='password'
+          type='password'
           value={password}
+          required
           onChange={handleFormChange}
         />
 
-        <label>Confirm Password</label>
-        <input
-          type='password'
-          required
+        <FormInput
+          label='Confirm Password'
           name='confirmPassword'
+          type='password'
           value={confirmPassword}
+          required
           onChange={handleFormChange}
         />
 
