@@ -1,6 +1,6 @@
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
 
-const SignIn = () => {
+const Authentication = () => {
   const logGoogleUser = async () => {
     console.log('log in with google');
 
@@ -20,4 +20,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Authentication;
