@@ -1,20 +1,12 @@
+import SignInForm from '../../components/sign-in-form/sign-in-form.component';
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
 
+import './authentication.styles.scss';
+
 const Authentication = () => {
-  const logGoogleUser = async () => {
-    console.log('log in with google');
-
-    // TODO: implement signInWithGoogle method
-    const signInWithGoogle = async () => {};
-    const response = await signInWithGoogle();
-    console.log(response);
-  };
-
   return (
-    <div>
-      <h1>Sign In Page</h1>
-      <button onClick={logGoogleUser}>Sign In with Google</button>
-
+    <div className='authentication-container'>
+      <SignInForm />
       <SignUpForm />
     </div>
   );
