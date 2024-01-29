@@ -21,23 +21,15 @@ const SignUpForm = () => {
       return;
     }
 
-    // TODO: implement createAuthUserWithEmailAndPassword method with google firebase
-    const createAuthUserWithEmailAndPassword = async (
+    // TODO: implement signInAuthUserWithEmailAndPassword method with google firebase
+    const signInAuthUserWithEmailAndPassword = async (
       email: String,
-      passwrod: String
-    ) => {};
-
-    // TODO: implement createUserDocumentFromAuth method with google firebase
-    const createUserDocumentFromAuth = async (
-      authUser: any,
-      additionalData: any
+      password: String
     ) => {};
 
     try {
-      const user = await createAuthUserWithEmailAndPassword(email, password);
+      const user = await signInAuthUserWithEmailAndPassword(email, password);
       console.log(user);
-
-      await createUserDocumentFromAuth(user, { displayName });
 
       resetFormFields();
     } catch (error: unknown) {
@@ -66,7 +58,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
+    <div className='sign-up-container'>
       <h2>Don't have an account?</h2>
       <p>Sign up with your email and password</p>
       <form onSubmit={handleFormSubmit}>
