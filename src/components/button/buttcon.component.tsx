@@ -4,7 +4,7 @@ type ButtonProps = {
   buttonType?: 'google' | 'inverted' | undefined;
   children: React.ReactNode;
   type: 'submit';
-  onClick: (event: React.FormEvent<HTMLFormElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 /*
@@ -19,11 +19,15 @@ const BUTTON_TYPE_CLASSES = {
   inverted: 'inverted',
 };
 
-const Button = ({ children, type, buttonType }: ButtonProps) => {
+const Button = ({ children, type, buttonType, onClick }: ButtonProps) => {
   const buttonClass = buttonType && BUTTON_TYPE_CLASSES[buttonType];
 
   return (
-    <button className={`button-container ${buttonClass}`} type={type}>
+    <button
+      className={`button-container ${buttonClass}`}
+      type={type}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
