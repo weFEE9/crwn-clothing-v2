@@ -2,7 +2,12 @@
 import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -37,6 +42,8 @@ export type UserAuth = {
 };
 
 export const createUserDocumentFromAuth = async (userAuth: UserAuth) => {
+  if (!userAuth) return;
+
   const userDocRef = doc(db, 'users', userAuth.uid);
 
   let userSnapshot;
@@ -65,4 +72,13 @@ export const createUserDocumentFromAuth = async (userAuth: UserAuth) => {
   }
 
   return userDocRef;
+};
+
+export const createUserAuthWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  if (!email || !password) return;
+
+  return createUserWithEmailAndPassword(auth, email, password);
 };

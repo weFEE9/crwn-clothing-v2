@@ -3,6 +3,14 @@ import { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/buttcon.component';
 
+import {
+  UserAuth,
+  createUserAuthWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from '../../utils/firebase/firebase.utils';
+
+import { FirebaseError } from '@firebase/util';
+
 import './sign-up-form.styles.scss';
 
 const defautlFormFields = {
@@ -21,26 +29,21 @@ const SignUpForm = () => {
       return;
     }
 
-    // TODO: implement signInAuthUserWithEmailAndPassword method with google firebase
-    const signInAuthUserWithEmailAndPassword = async (
-      email: String,
-      password: String
-    ) => {};
-
     try {
-      const user = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log(user);
+      const response = await createUserAuthWithEmailAndPassword(
+        email,
+        password
+      );
+      if (!response) return;
+
+      const { user } = response;
+      await createUserDocumentFromAuth({ ...user, displayName }); // Pass the user object as an argument
 
       resetFormFields();
     } catch (error: unknown) {
-      // TODO: implement error handling
-      //
-      // const { code } = error;
-      // if (code === 'auth/email-already-in-use') {
-      //   alert('Email already in use');
-      // } else {
-      //   console.log('user creation encountered an error', error);
-      // }
+      if (error instanceof FirebaseError) {
+        console.error(error.code, error.message);
+      }
     }
   };
 
