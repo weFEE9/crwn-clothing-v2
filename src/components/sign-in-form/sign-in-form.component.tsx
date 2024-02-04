@@ -5,7 +5,10 @@ import {
 } from '../../utils/firebase/firebase.utils';
 import { FirebaseError } from '@firebase/util';
 
-import { UserAuth } from '../../utils/firebase/firebase.utils';
+import {
+  UserAuth,
+  signInAuthUserWithEmailAndPassword,
+} from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/buttcon.component';
@@ -38,29 +41,22 @@ const SignInForm = () => {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // TODO: implement signInWithGoogle method with google firebase
-    const signInWithGoogle = async (email: String, passwrod: String) => {};
-
-    // TODO: implement createUserDocumentFromAuth method with google firebase
-    const createUserDocumentFromAuth = async (
-      authUser: any,
-      additionalData: any
-    ) => {};
-
     try {
-      const user = await signInWithGoogle(email, password);
-      console.log(user);
+      await signInAuthUserWithEmailAndPassword(email, password);
 
       resetFormFields();
-    } catch (error: unknown) {
-      // TODO: implement error handling
-      //
-      // const { code } = error;
-      // if (code === 'auth/email-already-in-use') {
-      //   alert('Email already in use');
-      // } else {
-      //   console.log('user creation encountered an error', error);
-      // }
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/wrong-password':
+          case 'auth/user-not-found':
+          case 'auth/invalid-credential':
+            alert('incorrect email or password');
+            break;
+          default:
+            console.log(error.code, error.message);
+        }
+      }
     }
   };
 
@@ -103,7 +99,7 @@ const SignInForm = () => {
         <div className='buttons-container'>
           <Button type='submit'>Sign in</Button>
 
-          <Button onClick={signInWithGoogle} buttonType='google'>
+          <Button type='button' onClick={signInWithGoogle} buttonType='google'>
             Google sign in
           </Button>
         </div>
