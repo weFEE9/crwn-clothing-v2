@@ -3,7 +3,7 @@ import './button.styles.scss';
 type ButtonProps = {
   buttonType?: 'google' | 'inverted' | undefined;
   children: React.ReactNode;
-  type?: 'submit';
+  type: 'submit' | 'button';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
