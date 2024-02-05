@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/buttcon.component';
 
+import { UserContext } from '../../contexts/user.context';
+
 import {
-  UserAuth,
   createUserAuthWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
@@ -21,6 +22,8 @@ const defautlFormFields = {
 };
 
 const SignUpForm = () => {
+  const { setCurrentUser } = useContext(UserContext);
+
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -38,6 +41,13 @@ const SignUpForm = () => {
 
       const { user } = response;
       await createUserDocumentFromAuth({ ...user, displayName }); // Pass the user object as an argument
+
+      setCurrentUser({
+        id: user.uid,
+        name: user.displayName ?? '',
+        email: user.email ?? '',
+        token: user.refreshToken,
+      });
 
       resetFormFields();
     } catch (error: unknown) {
