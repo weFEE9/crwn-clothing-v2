@@ -1,13 +1,8 @@
-import { useState, useContext } from 'react';
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
+import { useState } from 'react';
+import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils';
 import { FirebaseError } from '@firebase/util';
 
 import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
-
-import { UserContext } from '../../contexts/user.context';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/buttcon.component';
@@ -20,24 +15,9 @@ const defautlFormFields = {
 };
 
 const SignInForm = () => {
-  const { setCurrentUser } = useContext(UserContext);
-
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup();
-
-      await createUserDocumentFromAuth({
-        uid: user?.uid,
-        email: user?.email,
-        displayName: user?.displayName,
-      });
-
-      setCurrentUser({
-        id: user?.uid,
-        name: user?.displayName ?? '',
-        email: user?.email ?? '',
-        token: user?.refreshToken,
-      });
+      await signInWithGooglePopup();
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.code, error.message);
@@ -49,19 +29,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      if (!response) return;
-      const { user } = response;
-
-      setCurrentUser({
-        id: user.uid,
-        name: user.displayName ?? '',
-        email: user.email ?? '',
-        token: user.refreshToken,
-      });
+      await signInAuthUserWithEmailAndPassword(email, password);
 
       resetFormFields();
     } catch (error) {

@@ -1,4 +1,15 @@
-import { useState, createContext, Dispatch, SetStateAction } from 'react';
+import {
+  useState,
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
+
+import {
+  createUserDocumentFromAuth,
+  onAuthStateChangedListener,
+} from '../utils/firebase/firebase.utils';
 
 export type ContextUser = {
   id: string;
@@ -22,6 +33,18 @@ type UserContextProviderProps = {
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [currentUser, setCurrentUser] = useState<ContextUser | null>(null);
   const value = { currentUser, setCurrentUser };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      setCurrentUser(user);
+
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
